@@ -78,7 +78,7 @@ export class Cliente {
     /**
      * Define o cpf do cliente.
      *
-     * @param cpf - O nome do modelo do carro.
+     * @param cpf - O cpf do cliente do carro.
      */
     public setCpf(cpf: string): void {
         this.cpf = cpf;
