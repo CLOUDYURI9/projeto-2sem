@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Renato Oliveira",
+  "author": "Yuri Dinato",
   "license": "ISC",
   "description": "",
   "devDependencies": {
@@ -16,5 +16,9 @@
     "nodemon": "^3.1.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0"
   }
 }
