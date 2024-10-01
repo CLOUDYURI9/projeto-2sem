@@ -23,10 +23,6 @@ CREATE TABLE Pedido_venda(
 	FOREIGN KEY (id_carro) REFERENCES Carro(id_carro)
 )
 
-ALTER TABLE Carro
-ADD COLUMN modelo VARCHAR(50);
-
-
 INSERT INTO Carro (marca, modelo, ano, cor)
 VALUES 	('VOLKSWAGEN', 'Jetta', 2019, 'Branco'),
 		('NISSAN', 'SENTRA', 2015, 'Branco'),
