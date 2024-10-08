@@ -1,5 +1,5 @@
 /**
- * Classe que representa um Peido de venda de um carro.
+ * Classe que representa um Pedido de venda de um carro.
  */
 
 import { DatabaseModel } from "./DatabaseModel";
