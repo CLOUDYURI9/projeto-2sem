@@ -1,6 +1,12 @@
 /**
  * Classe que representa um cliente.
  */
+
+import { DatabaseModel } from "./DatabaseModel";
+
+const database =  new DatabaseModel().pool;
+
+
 export class Cliente {
 
     /* Atributos */
@@ -102,4 +108,46 @@ export class Cliente {
     public setTelefone(telefone: string): void {
         this.telefone = telefone;
     }
+
+
+    //METODO PARA ACESSAR O BANCO DE DADOS
+    //CRUD CREAT - READ - UPDATE - DELETE
+    static async listarCliente(): Promise<Array<Cliente> | null> {
+        //criando lista vazia para armazenar os clientes
+        let listaDeCliente: Array<Cliente> = [];
+
+        try {
+            //QUERY PARA CONSULTA NO BANCO DE DADOS
+            const querySelectCliente = `SELECT * FROM cliente;`;
+
+            //EXECUTA A QUERY NO BANCO DE DADOS
+            const respostaBD = await database.query(querySelectCliente);
+
+            //PERCORRE CADA RESULTADO RETORNADO PELO BANCO DE DADOS
+            //CARRO É O APELIDO QUE DEMOS PARA CADA LINHA RETPRNADO DO BANCO DE DADOS
+
+            //CRIANDO OBJETO CLIENTE
+            respostaBD.rows.forEach((cliente) => {
+                let novaCliente = new Cliente(
+                    cliente.nome,
+                    cliente.cpf,
+                    cliente.telefone
+                );
+                // adicionando o ID ao objeto
+                novaCliente.setIdCliente(cliente.id_cliente);
+
+                //adicionando o carro na lista
+                listaDeCliente.push(novaCliente);
+            });
+
+            return listaDeCliente;
+
+        } catch (error) {
+            console.log(`Erro ao acessar o modelo : ${error}`);
+            return null;
+        }
+    }
 }
+
+
+    

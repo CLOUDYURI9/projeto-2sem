@@ -1,6 +1,10 @@
 /**
  * Classe que representa um carro.
  */
+
+import { DatabaseModel } from "./DatabaseModel";
+const database =  new DatabaseModel().pool;
+
 export class PedidoVenda {
 
     /* Atributos */
@@ -121,4 +125,45 @@ export class PedidoVenda {
     public setValorPedido(valorPedido: number): void {
         this.valorPedido = valorPedido;
     }
+
+    //METODO PARA ACESSAR O BANCO DE DADOS
+    //CRUD CREAT - READ - UPDATE - DELETE
+    static async listarPedidoVenda(): Promise<Array<PedidoVenda> | null>{
+        //criando lista vazia para armazenar as pessoas
+        let listaDePedidoVenda: Array<PedidoVenda> = [];
+        
+        try {
+            //QUERY PARA CONSULTA NO BANCO DE DADOS
+            const querySelectPedidoVenda = `SELECT * FROM pedido_venda;`;
+
+            //EXECUTA A QUERY NO BANCO DE DADOS
+            const respostaBD = await database.query(querySelectPedidoVenda);
+            
+            //PERCORRE CADA RESULTADO RETORNADO PELO BANCO DE DADOS
+            //CARRO É O APELIDO QUE DEMOS PARA CADA LINHA RETPRNADO DO BANCO DE DADOS
+            
+            //CRIANDO OBJETO PEDIDO VENDA
+            respostaBD.rows.forEach((pedido_venda)  => {
+                let novaPedidoVenda = new PedidoVenda(
+                    pedido_venda.id_carro,
+                    pedido_venda.id_cliente,
+                    pedido_venda.data_pedido,
+                    pedido_venda.valor_pedido
+                );
+                // adicionando o ID ao objeto
+                novaPedidoVenda.setIdPedido(pedido_venda.id_pedido);
+                
+                //adicionando o carro na lista
+                listaDePedidoVenda.push(novaPedidoVenda);
+            });
+
+            return listaDePedidoVenda;
+
+        } catch (error) {
+            console.log(`Erro ao acessar o modelo : ${error}`);
+            return null;
+        }
+    }
 }
+
+
