@@ -1,5 +1,5 @@
 /**
- * Classe que representa um carro.
+ * Classe que representa um Peido de venda de um carro.
  */
 
 import { DatabaseModel } from "./DatabaseModel";
@@ -63,12 +63,12 @@ export class PedidoVenda {
      * @returns o identificador do carro
      */
     public getIdCarro(): number {
-        return this.idCarro;
+        return this.idPedido;
     }
 
     /**
-     * Atribui um valor ao identificador do carro
-     * @param idCarro novo identificado do carro
+     * Atribui um valor ao identificador do pedido
+     * @param idPedido novo identificado do pedido
      */
     public setIdCarro(idCarro: number): void {
         this.idCarro = idCarro;
