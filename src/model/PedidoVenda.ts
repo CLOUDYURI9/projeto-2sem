@@ -128,6 +128,15 @@ export class PedidoVenda {
 
     //METODO PARA ACESSAR O BANCO DE DADOS
     //CRUD CREAT - READ - UPDATE - DELETE
+    
+    /**
+    * Método estático responsável por listar todos os pedidos de venda do banco de dados.
+    * Este método faz uma consulta no banco de dados, cria objetos `PedidoVenda` para 
+    * cada linha retornada e os adiciona a uma lista, que é retornada ao final.
+    * 
+    * @returns {Promise<Array<PedidoVenda> | null>} Retorna uma lista de objetos `PedidoVenda` 
+    * em caso de sucesso, ou `null` em caso de erro.
+    */
     static async listarPedidoVenda(): Promise<Array<PedidoVenda> | null>{
         //criando lista vazia para armazenar as pessoas
         let listaDePedidoVenda: Array<PedidoVenda> = [];
@@ -142,8 +151,8 @@ export class PedidoVenda {
             //PERCORRE CADA RESULTADO RETORNADO PELO BANCO DE DADOS
             //CARRO É O APELIDO QUE DEMOS PARA CADA LINHA RETPRNADO DO BANCO DE DADOS
             
-            //CRIANDO OBJETO PEDIDO VENDA
             respostaBD.rows.forEach((pedido_venda)  => {
+                //CRIANDO OBJETO PEDIDO VENDA
                 let novaPedidoVenda = new PedidoVenda(
                     pedido_venda.id_carro,
                     pedido_venda.id_cliente,
@@ -156,10 +165,11 @@ export class PedidoVenda {
                 //adicionando o carro na lista
                 listaDePedidoVenda.push(novaPedidoVenda);
             });
-
+            // Retorna a lista de pedidos de venda
             return listaDePedidoVenda;
 
         } catch (error) {
+            // Loga o erro no console e retorna null em caso de falha
             console.log(`Erro ao acessar o modelo : ${error}`);
             return null;
         }

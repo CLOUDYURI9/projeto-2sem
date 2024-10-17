@@ -130,6 +130,15 @@ export class Carro {
 
     //METODO PARA ACESSAR O BANCO DE DADOS
     //CRUD CREAT - READ - UPDATE - DELETE
+    
+    /**
+    * Método estático responsável por listar todos os carros do banco de dados.
+    * Este método faz uma consulta no banco de dados, cria objetos `Carro` para cada 
+    * linha retornada e os adiciona a uma lista, que é retornada ao final.
+    * 
+    * @returns {Promise<Array<Carro> | null>} Retorna uma lista de objetos `Carro` 
+    * em caso de sucesso, ou `null` em caso de erro.
+    */
     static async listarCarro(): Promise<Array<Carro> | null> {
         //criando lista vazia para armazenar os carros
         let listaDeCarros: Array<Carro> = [];

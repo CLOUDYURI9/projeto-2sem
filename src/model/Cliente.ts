@@ -112,6 +112,15 @@ export class Cliente {
 
     //METODO PARA ACESSAR O BANCO DE DADOS
     //CRUD CREAT - READ - UPDATE - DELETE
+    
+    /**
+    * Método estático responsável por listar todos os clientes do banco de dados.
+    * Este método faz uma consulta no banco de dados, cria objetos `Cliente` para 
+    * cada linha retornada e os adiciona a uma lista, que é retornada ao final.
+    * 
+    * @returns {Promise<Array<Cliente> | null>} Retorna uma lista de objetos `Cliente` 
+    * em caso de sucesso, ou `null` em caso de erro.
+    */
     static async listarCliente(): Promise<Array<Cliente> | null> {
         //criando lista vazia para armazenar os clientes
         let listaDeCliente: Array<Cliente> = [];
