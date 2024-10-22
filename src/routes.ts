@@ -16,14 +16,15 @@ router.get("/", (req: Request, res: Response ) => {
 });
 
 router.get("/carro", CarroController.todos);
-
+router.post("/novo/carro", CarroController.novo);
 
 
 router.get("/cliente", ClienteController.todos);
-
+router.post("/novo/cliente", ClienteController.novo);
 
 
 router.get("/PedidoVenda", PedidoVendaController.todos);
+router.post("/novo/pedidoVenda", ClienteController.novo);
 
 //exportando as rotas
 export { router };
