@@ -24,7 +24,7 @@ router.post("/novo/cliente", ClienteController.novo);
 
 
 router.get("/PedidoVenda", PedidoVendaController.todos);
-router.post("/novo/pedidoVenda", ClienteController.novo);
+router.post("/novo/pedido", PedidoVendaController.novo);
 
 //exportando as rotas
 export { router };

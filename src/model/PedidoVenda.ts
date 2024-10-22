@@ -29,7 +29,6 @@ export class PedidoVenda {
      */
 
     constructor(
-    
         idCarro: number,
         idCliente: number,
         dataPedido: Date,
@@ -63,7 +62,7 @@ export class PedidoVenda {
      * @returns o identificador do carro
      */
     public getIdCarro(): number {
-        return this.idPedido;
+        return this.idCarro;
     }
 
     /**
@@ -198,16 +197,16 @@ export class PedidoVenda {
                                         VALUES
                                         ('${pedidoVenda.getIdCarro()}', 
                                         '${pedidoVenda.getIdCliente()}', 
-                                        '${pedidoVenda.getDataPedido()}'
-                                        '${pedidoVenda.getValorPedido()}') 
-                                        RETURNING id_pedidoVenda;`;
+                                        '${pedidoVenda.getDataPedido()}',
+                                        ${pedidoVenda.getValorPedido()}) 
+                                        RETURNING id_pedido;`;
 
             // executa a query no banco e armazena a resposta
             const respostaBD = await database.query(queryInsertPedidoVenda);
 
             // verifica se a quantidade de linhas modificadas é diferente de 0
             if (respostaBD.rowCount != 0) {
-                console.log(`Pedido de Venda cadastrado com sucesso! ID do pedidoVenda: ${respostaBD.rows[0].id_pedidoVenda}`);
+                console.log(`Pedido de Venda cadastrado com sucesso! ID do pedidoVenda: ${respostaBD.rows[0].id_pedido}`);
                 // true significa que o cadastro foi feito
                 return true;
             }
@@ -225,5 +224,3 @@ export class PedidoVenda {
         }
     }
 }
-
-
