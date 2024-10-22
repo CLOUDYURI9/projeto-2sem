@@ -1,7 +1,6 @@
 import { Request, Response, Router} from "express";
 import CarroController from "./controller/CarroController";
 import ClienteController from "./controller/ClienteController";
-import PedidoVenda from  "./controller/PedidoVendaController";
 import PedidoVendaController from "./controller/PedidoVendaController";
 
 //Cria um roteador
