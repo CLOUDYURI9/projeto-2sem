@@ -10,5 +10,9 @@ server.use(express.json());
 //Configurando as rotas do servidor
 server.use(router);
 
+
+
+
 //exporta o servidor
 export {server};
+
