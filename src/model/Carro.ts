@@ -254,4 +254,36 @@ export class Carro {
             return false;   
         }
     }
+
+    static async atualizarCarro(carro: Carro): Promise<boolean> {
+        try {
+            //cria a query de update a ser executada no bando de dados
+            const queryUpdateCarro = `UPDATE carro SET
+                                        marca = '${carro.getMarca()}',
+                                        modelo = '${carro.getModelo()}',
+                                        ano = ${carro.getAno()},
+                                        cor = '${carro.getCor()}'
+                                        WHERE id_carro = ${carro.getIdCarro()};`;
+
+            // executar a query e armazenar a resposta do banco de dados em uma variazvel
+            const respostaBD = await database.query(queryUpdateCarro);
+            //verifica se alguma linha foi alterado
+            if(respostaBD.rowCount != 0) {
+                //imprime uma mensagem de sucesso no console
+                console.log(`Carro atualizado com sucesso! ID do carro: ${carro.getIdCarro()}`);
+                return true;
+            }
+            //retorna falso, indicando que a query não foi executada com sucesso.
+            return false; 
+
+        } catch (error) {
+             //exibe uma mensagem de erro
+             console.log(`Erro ao atualizar carro. Verifique os logs para mais detalhes.`)
+             //imprime o erro no console da API
+             console.log(error);
+             //retorna false, o que indica a remoção não foi feita
+             return false;   
+        }
+
+    }
 }

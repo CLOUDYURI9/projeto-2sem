@@ -113,6 +113,38 @@ class PedidoVendaController extends PedidoVenda {
             return res.status(400).json({ mensagem: "Não foi possível remover o pedido de venda. Entre em contato com o administrador do sistema." });
         }
     }
+
+    static async atualizar(req: Request, res: Response): Promise<Response> {
+        try {
+            //recupera as informações a serem atualizadoas no corpo da requisição
+            const pedidoRecebido: PedidoVendaDTO = req.body;
+            const idPedidoRecebido = parseInt(req.params.idPedido as string);
+
+            const pedidoAtualizado = new PedidoVenda(
+                pedidoRecebido.idCarro,
+                pedidoRecebido.idCliente,
+                pedidoRecebido.dataPedido,
+                pedidoRecebido.valorPedido
+            );
+
+            pedidoAtualizado.setIdPedido(idPedidoRecebido);
+
+            const respostaModelo = await PedidoVenda.atualizarPedido(pedidoAtualizado);
+
+            if(respostaModelo) {
+                return res.status(200).json({ mensagem: "pedido atualizado com sucesso!"});
+            }else{
+            return res.status(400).json({ mensagem: "Erro ao atualizar o pedido. Entre em contato com o administrador do sistema"})
+            }
+
+        } catch (error) {
+             // lança uma mensagem de erro no console
+             console.log(`Erro ao atualizar um pedido. ${error}`);
+
+             // retorna uma mensagem de erro há quem chamou a mensagem
+             return res.status(400).json({ mensagem: "Não foi possível atualizar o pedido. Entre em contato com o administrador do sistema." });
+        }
+    }
 }
 
 export default PedidoVendaController;

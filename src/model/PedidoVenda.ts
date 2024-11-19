@@ -253,4 +253,36 @@ export class PedidoVenda {
         }
 
     }
+    
+    static async atualizarPedido(pedidoVenda: PedidoVenda): Promise<boolean> {
+        try {
+            //cria a query de update a ser executada no bando de dados
+            const queryUpdatePedido = `UPDATE pedido_venda SET
+                                        id_cliente = ${pedidoVenda.getIdCliente()},
+                                        id_carro = ${pedidoVenda.getIdCarro()},
+                                        data_pedido = '${pedidoVenda.getDataPedido()}',
+                                        valor_pedido = ${pedidoVenda.getValorPedido()}
+                                        WHERE id_pedido = ${pedidoVenda.getIdPedido()};`;
+
+            // executar a query e armazenar a resposta do banco de dados em uma variazvel
+            const respostaBD = await database.query(queryUpdatePedido);
+            //verifica se alguma linha foi alterado
+            if(respostaBD.rowCount != 0) {
+                //imprime uma mensagem de sucesso no console
+                console.log(`Pedido atualizado com sucesso! ID do pedido: ${pedidoVenda.getIdPedido()}`);
+                return true;
+            }
+            //retorna falso, indicando que a query não foi executada com sucesso.
+            return false; 
+
+        } catch (error) {
+             //exibe uma mensagem de erro
+             console.log(`Erro ao atualizar pedido. Verifique os logs para mais detalhes.`)
+             //imprime o erro no console da API
+             console.log(error);
+             //retorna false, o que indica a remoção não foi feita
+             return false;   
+        }
+
+    }
 }

@@ -110,6 +110,38 @@ class CarroController extends Carro{
             return res.status(400).json({ mensagem: "Não foi possível remover o carro. Entre em contato com o administrador do sistema." });
         }
     }
+
+    static async atualizar(req: Request, res: Response): Promise<Response> {
+        try {
+            //recupera as informações a serem atualizadoas no corpo da requisição
+            const carroRecebido: CarroDTO = req.body;
+            const idCarroRecebido = parseInt(req.params.idCarro as string);
+
+            const carroAtualizado = new Carro(
+                carroRecebido.marca,
+                carroRecebido.modelo,
+                carroRecebido.ano,
+                carroRecebido.cor
+            );
+
+            carroAtualizado.setIdCarro(idCarroRecebido);
+
+            const respostaModelo = await Carro.atualizarCarro(carroAtualizado);
+
+            if(respostaModelo) {
+                return res.status(200).json({ mensagem: "Carro atualizado com sucesso!"});
+            }else{
+            return res.status(400).json({ mensagem: "Erro ao atualizar o carro. Entre em contato com o administrador do sistema"})
+            }
+
+        } catch (error) {
+             // lança uma mensagem de erro no console
+             console.log(`Erro ao atualizar um carro. ${error}`);
+
+             // retorna uma mensagem de erro há quem chamou a mensagem
+             return res.status(400).json({ mensagem: "Não foi possível atualizar o carro. Entre em contato com o administrador do sistema." });
+        }
+    }
 }
 
 export default CarroController;
